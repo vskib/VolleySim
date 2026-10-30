@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "VolleySim",
+    "slug": "volleysim",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "volleysim",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B1B33"
+    },
+    "android": {
+      "package": "com.volleysim.app",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B1B33"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    },
+    "icon": "./assets/icon.png",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c8214dc4-2fca-482d-b5c5-7dbed6886c2f"
+      }
+    },
+    "owner": "vskibb"
+  }
+}
