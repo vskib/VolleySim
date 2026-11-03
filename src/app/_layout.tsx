@@ -1,3 +1,4 @@
+// @ts-expect-error Metro resolves this stylesheet import at runtime.
 import "../../global.css";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
