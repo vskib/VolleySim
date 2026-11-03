@@ -106,8 +106,8 @@ export function VolleyballCourt({
               const r = `${mx - ux * 1.6 + uy * 2.2},${my - uy * 1.6 - ux * 2.2}`;
               return (
                 <G key={`flow-${from}`}>
-                  <Line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#FFD23F" strokeWidth={0.9} strokeDasharray="2 1.6" />
-                  <Polygon points={`${tip} ${l} ${r}`} fill="#FFD23F" />
+                  <Line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#C8F135" strokeWidth={0.9} strokeDasharray="2 1.6" />
+                  <Polygon points={`${tip} ${l} ${r}`} fill="#C8F135" />
                 </G>
               );
             })
@@ -130,8 +130,8 @@ export function VolleyballCourt({
               />
             ) : null}
             <Circle cx={ball.from.x} cy={ball.from.y} r={1.3} fill="#FFFFFF" opacity={0.7} />
-            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="#FFFFFF" stroke="#0B1B33" strokeWidth={0.6} />
-            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="none" stroke="#FFD23F" strokeWidth={0.6} strokeDasharray="1.2 1" />
+            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="#FFFFFF" stroke="#0D1117" strokeWidth={0.6} />
+            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="none" stroke="#C8F135" strokeWidth={0.6} strokeDasharray="1.2 1" />
           </G>
         ) : null}
       </Svg>

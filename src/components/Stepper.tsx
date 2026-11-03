@@ -18,7 +18,7 @@ export function Stepper({ label, value, min, max, step = 1, onChange }: Props) {
       accessibilityLabel={a11y}
       disabled={disabled}
       onPress={() => onChange(clamp(value + delta))}
-      className={`h-12 w-12 items-center justify-center rounded-2xl bg-navy-700 ${
+      className={`h-12 w-12 items-center justify-center rounded-2xl bg-ink-700 ${
         disabled ? "opacity-30" : "active:opacity-70"
       }`}
     >
@@ -30,7 +30,7 @@ export function Stepper({ label, value, min, max, step = 1, onChange }: Props) {
       <Text className="flex-1 text-base font-semibold text-white">{label}</Text>
       <View className="flex-row items-center">
         {button("−", -step, `Decrease ${label}`, value <= min)}
-        <Text className="w-14 text-center text-2xl font-extrabold text-volley-yellow">{value}</Text>
+        <Text className="w-14 text-center text-2xl font-extrabold text-accent">{value}</Text>
         {button("+", step, `Increase ${label}`, value >= max)}
       </View>
     </View>

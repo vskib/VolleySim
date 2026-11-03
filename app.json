@@ -35,6 +35,13 @@
         "projectId": "c8214dc4-2fca-482d-b5c5-7dbed6886c2f"
       }
     },
-    "owner": "vskibb"
+    "owner": "vskibb",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c8214dc4-2fca-482d-b5c5-7dbed6886c2f"
+    },
+    "ios": {}
   }
 }

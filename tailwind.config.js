@@ -5,8 +5,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        navy: { 900: "#0B1B33", 800: "#12294A", 700: "#1B3A66" },
-        volley: { orange: "#FF8A1F", yellow: "#FFD23F" },
+        // Charcoal surfaces, from page background (900) up to borders (600).
+        ink: { 900: "#0D1117", 800: "#161B22", 700: "#21262D", 600: "#30363D" },
+        // The single bright accent used for actions and highlights.
+        accent: "#C8F135",
       },
     },
   },

@@ -12,10 +12,10 @@ interface Props<T extends string> {
   onChange: (value: T) => void;
 }
 
-/** A simple segmented control with large touch targets. */
+/** A pill-shaped segmented control with large touch targets. */
 export function Segmented<T extends string>({ options, value, onChange }: Props<T>) {
   return (
-    <View className="flex-row rounded-2xl bg-navy-800 p-1">
+    <View className="flex-row rounded-full border border-ink-600 bg-ink-800 p-1">
       {options.map((o) => {
         const active = o.value === value;
         return (
@@ -25,13 +25,13 @@ export function Segmented<T extends string>({ options, value, onChange }: Props<
             accessibilityLabel={o.label}
             accessibilityState={{ selected: active }}
             onPress={() => onChange(o.value)}
-            className={`min-h-[44px] flex-1 items-center justify-center rounded-xl px-2 ${
-              active ? "bg-volley-orange" : "active:opacity-70"
+            className={`min-h-[44px] flex-1 items-center justify-center rounded-full px-2 ${
+              active ? "bg-accent" : "active:opacity-70"
             }`}
           >
             <Text
               numberOfLines={1}
-              className={`text-sm font-bold ${active ? "text-navy-900" : "text-slate-200"}`}
+              className={`text-sm font-extrabold ${active ? "text-ink-900" : "text-slate-300"}`}
             >
               {o.label}
             </Text>

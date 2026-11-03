@@ -28,9 +28,9 @@ export function TeamCard({
   onRename,
 }: Props) {
   const fallback = team === "A" ? "Team A" : "Team B";
-  const border = team === "A" ? "border-blue-500" : "border-rose-500";
+  const border = team === "A" ? "border-sky-500" : "border-rose-500";
   return (
-    <View className={`flex-1 rounded-3xl border-2 bg-navy-800 p-3 ${border}`}>
+    <View className={`flex-1 rounded-3xl border-2 bg-ink-800 p-3 ${border}`}>
       <TextInput
         value={name}
         onChangeText={onRename}
@@ -40,13 +40,13 @@ export function TeamCard({
         maxLength={24}
         selectTextOnFocus
         accessibilityLabel={`${fallback} name`}
-        className="rounded-xl bg-navy-900 px-2 py-2 text-center text-base font-bold text-white"
+        className="rounded-xl bg-ink-900 px-2 py-2 text-center text-base font-bold text-white"
         placeholderTextColor="#94A3B8"
       />
       <View className="mt-1 h-6 items-center justify-center">
         {serving ? (
-          <View className="rounded-full bg-volley-yellow px-3 py-0.5">
-            <Text className="text-xs font-extrabold text-navy-900">SERVING</Text>
+          <View className="rounded-full bg-accent px-3 py-0.5">
+            <Text className="text-xs font-extrabold text-ink-900">SERVING</Text>
           </View>
         ) : (
           <Text className="text-xs font-semibold text-slate-400">Receiving</Text>
@@ -59,7 +59,7 @@ export function TeamCard({
         {score}
       </Text>
       <Text className="mb-3 text-center text-sm text-slate-300">
-        Sets won: <Text className="font-extrabold text-volley-yellow">{setsWon}</Text>
+        Sets won: <Text className="font-extrabold text-accent">{setsWon}</Text>
         {"  ·  "}
         {rotationLabel}
       </Text>

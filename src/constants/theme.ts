@@ -1,1 +1,1 @@
-export const TEAM_COLORS = { A: "#2563EB", B: "#E11D48" } as const;
+export const TEAM_COLORS = { A: "#0369A1", B: "#BE123C" } as const;

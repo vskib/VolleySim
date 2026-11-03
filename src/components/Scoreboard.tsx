@@ -9,13 +9,13 @@ export function Scoreboard({ match }: { match: MatchState }) {
   const deciding = isDecidingSet(match.config, match.currentSet) && match.config.mode === "standard";
   const bestOf = match.config.mode === "standard" ? 5 : match.config.bestOf;
   return (
-    <View className="rounded-3xl bg-navy-800 p-4">
+    <View className="rounded-3xl bg-ink-800 p-4">
       <View className="flex-row items-center justify-between">
         <Text className="text-lg font-extrabold text-white">
           {match.winner ? "Final" : `Set ${match.currentSet}`}
           <Text className="text-sm font-semibold text-slate-300"> of {bestOf}</Text>
         </Text>
-        <Text className="text-sm font-semibold text-volley-yellow">
+        <Text className="text-sm font-semibold text-accent">
           {match.winner
             ? "Match complete"
             : `First to ${target}${deciding ? " (deciding set)" : ""}, win by 2`}
@@ -30,7 +30,7 @@ export function Scoreboard({ match }: { match: MatchState }) {
           {match.setResults.map((r) => (
             <View
               key={r.setNumber}
-              className="mb-1 mr-2 rounded-full bg-navy-700 px-3 py-1"
+              className="mb-1 mr-2 rounded-full bg-ink-700 px-3 py-1"
               accessibilityLabel={`Set ${r.setNumber}: ${r.scoreA} to ${r.scoreB}`}
             >
               <Text className="text-xs font-bold text-white">

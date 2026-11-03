@@ -12,13 +12,13 @@ interface Props {
   accessibilityLabel?: string;
 }
 
-const VARIANT_BG: Record<Variant, string> = {
-  primary: "bg-volley-orange",
-  secondary: "bg-navy-700",
-  danger: "bg-red-600",
-  ghost: "border border-navy-700 bg-transparent",
-  teamA: "bg-blue-600",
-  teamB: "bg-rose-600",
+const VARIANT_STYLE: Record<Variant, string> = {
+  primary: "bg-accent",
+  secondary: "border border-ink-600 bg-ink-700",
+  danger: "bg-rose-600",
+  ghost: "border border-ink-600 bg-transparent",
+  teamA: "bg-sky-700",
+  teamB: "bg-rose-700",
 };
 
 export function PrimaryButton({
@@ -29,7 +29,7 @@ export function PrimaryButton({
   className = "",
   accessibilityLabel,
 }: Props) {
-  const textColor = variant === "primary" ? "text-navy-900" : "text-white";
+  const textColor = variant === "primary" ? "text-ink-900" : "text-white";
   return (
     <Pressable
       accessibilityRole="button"
@@ -37,11 +37,11 @@ export function PrimaryButton({
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={onPress}
-      className={`min-h-[48px] items-center justify-center rounded-2xl px-4 py-2 ${VARIANT_BG[variant]} ${
+      className={`min-h-[52px] items-center justify-center rounded-full px-5 py-2 ${VARIANT_STYLE[variant]} ${
         disabled ? "opacity-40" : "active:opacity-70"
       } ${className}`}
     >
-      <Text className={`text-center text-base font-bold ${textColor}`}>{title}</Text>
+      <Text className={`text-center text-base font-extrabold tracking-tight ${textColor}`}>{title}</Text>
     </Pressable>
   );
 }
