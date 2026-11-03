@@ -50,6 +50,8 @@ function Shell() {
       <Tabs.Screen name="setup" options={{ href: null }} />
       <Tabs.Screen name="lineup" options={{ href: null }} />
       <Tabs.Screen name="settings" options={{ href: null }} />
+      <Tabs.Screen name="planner" options={{ href: null }} />
+      <Tabs.Screen name="trainer" options={{ href: null }} />
     </Tabs>
   );
 }

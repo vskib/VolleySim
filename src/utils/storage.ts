@@ -40,4 +40,5 @@ export const KEYS = {
   settings: "volleysim.settings",
   recent: "volleysim.recent",
   match: "volleysim.match",
+  plans: "volleysim.plans",
 };

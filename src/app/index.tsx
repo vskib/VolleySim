@@ -68,6 +68,18 @@ export default function HomeScreen() {
           onPress={() => router.push("/rules")}
         />
         <PrimaryButton
+          title="Tactics Planner"
+          variant="secondary"
+          className="mt-3"
+          onPress={() => router.push("/planner")}
+        />
+        <PrimaryButton
+          title="Rally Trainer"
+          variant="secondary"
+          className="mt-3"
+          onPress={() => router.push("/trainer")}
+        />
+        <PrimaryButton
           title="Edit Team Lineups"
           variant="ghost"
           className="mt-3"

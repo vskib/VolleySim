@@ -1,8 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import Svg, { Circle, G, Line, Polygon, Rect, Text as SvgText } from "react-native-svg";
-import { POSITIONS } from "../constants/volleyballPositions";
+import Svg, { Circle, G, Line, Polygon } from "react-native-svg";
+import { Pt, slotPoint } from "../features/planner/courtGeometry";
 import { Player } from "../types/volleyball";
+import { CourtLines } from "./CourtLines";
 import { PlayerMarker } from "./PlayerMarker";
 
 export interface TeamLayer {
@@ -28,26 +29,15 @@ interface Props {
   offsets?: Partial<Record<number, { dx: number; dy: number }>>;
   /** Positions of the bottom team to outline in red. */
   faults?: number[];
+  /** Draw a ball and its path (court units). Used by the rally trainer. */
+  ball?: { from: Pt; to: Pt };
+  /** Bottom-team positions to ring with a dashed outline (the players involved in a touch). */
+  highlightPositions?: number[];
 }
 
 const FLOW_ORDER = [2, 1, 6, 5, 4, 3, 2];
 
-const NET_Y = 55;
-const FRONT_DY = 13;
-const BACK_DY = 37;
-const ATTACK_DY = 21;
-const COURT_LEFT = 6;
-const COURT_RIGHT = 94;
-const COURT_TOP = 5;
-const COURT_BOTTOM = 105;
-
-function slot(position: number) {
-  const info = POSITIONS[position - 1];
-  return {
-    x: COURT_LEFT + info.x * 0.88,
-    y: NET_Y + (info.row === "Front" ? FRONT_DY : BACK_DY),
-  };
-}
+const slot = slotPoint;
 
 export function VolleyballCourt({
   bottom,
@@ -60,6 +50,8 @@ export function VolleyballCourt({
   showFlow = false,
   offsets,
   faults,
+  ball,
+  highlightPositions,
 }: Props) {
   const viewBox = halfOnly ? "0 48 100 62" : "0 0 100 110";
   const aspect = halfOnly ? 100 / 62 : 100 / 110;
@@ -85,7 +77,10 @@ export function VolleyballCourt({
           showName={showNames}
           isServer={Boolean(layer.serving) && position === 1}
           fault={!mirrored && Boolean(faults?.includes(position))}
-          selected={interactive && selectedPosition === position}
+          selected={
+            (interactive && selectedPosition === position) ||
+            (!mirrored && Boolean(highlightPositions?.includes(position)))
+          }
           dimmed={interactive && selectedPosition !== null && selectedPosition !== position}
           onPress={interactive && onSelectPosition ? () => onSelectPosition(position) : undefined}
         />
@@ -95,39 +90,7 @@ export function VolleyballCourt({
   return (
     <View style={{ width: "100%", aspectRatio: aspect }} accessibilityLabel="Volleyball court seen from above">
       <Svg width="100%" height="100%" viewBox={viewBox}>
-        {/* free zone */}
-        <Rect x={0} y={0} width={100} height={110} rx={4} fill="#1B3A66" />
-        {/* court floor */}
-        <Rect x={COURT_LEFT} y={COURT_TOP} width={COURT_RIGHT - COURT_LEFT} height={COURT_BOTTOM - COURT_TOP} fill="#E07B2B" />
-        {/* front zones, slightly lighter */}
-        <Rect x={COURT_LEFT} y={NET_Y - ATTACK_DY} width={COURT_RIGHT - COURT_LEFT} height={ATTACK_DY * 2} fill="#F29145" />
-        {/* boundary */}
-        <Rect
-          x={COURT_LEFT}
-          y={COURT_TOP}
-          width={COURT_RIGHT - COURT_LEFT}
-          height={COURT_BOTTOM - COURT_TOP}
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth={0.9}
-        />
-        {/* attack lines (3 m lines) */}
-        <Line x1={COURT_LEFT} y1={NET_Y - ATTACK_DY} x2={COURT_RIGHT} y2={NET_Y - ATTACK_DY} stroke="#FFFFFF" strokeWidth={0.7} />
-        <Line x1={COURT_LEFT} y1={NET_Y + ATTACK_DY} x2={COURT_RIGHT} y2={NET_Y + ATTACK_DY} stroke="#FFFFFF" strokeWidth={0.7} />
-        {/* center line under the net */}
-        <Line x1={COURT_LEFT} y1={NET_Y} x2={COURT_RIGHT} y2={NET_Y} stroke="#FFFFFF" strokeWidth={0.7} />
-
-        {/* net */}
-        <Line x1={2} y1={NET_Y} x2={98} y2={NET_Y} stroke="#FFFFFF" strokeWidth={1.6} />
-        <Line x1={2} y1={NET_Y} x2={98} y2={NET_Y} stroke="#0B1B33" strokeWidth={1.6} strokeDasharray="1.2 1.2" />
-        <Circle cx={2.6} cy={NET_Y} r={1.4} fill="#FFD23F" />
-        <Circle cx={97.4} cy={NET_Y} r={1.4} fill="#FFD23F" />
-        <G>
-          <Rect x={43} y={NET_Y - 2.2} width={14} height={4.4} rx={2.2} fill="#0B1B33" opacity={0.85} />
-          <SvgText x={50} y={NET_Y + 1.1} fontSize={3} fontWeight="bold" fill="#FFFFFF" textAnchor="middle">
-            NET
-          </SvgText>
-        </G>
+        <CourtLines />
 
         {showFlow
           ? FLOW_ORDER.slice(0, -1).map((from, i) => {
@@ -152,6 +115,25 @@ export function VolleyballCourt({
 
         {top ? renderTeam(top, true, false) : null}
         {renderTeam(bottom, false, true)}
+
+        {ball ? (
+          <G>
+            {ball.from.x !== ball.to.x || ball.from.y !== ball.to.y ? (
+              <Line
+                x1={ball.from.x}
+                y1={ball.from.y}
+                x2={ball.to.x}
+                y2={ball.to.y}
+                stroke="#FFFFFF"
+                strokeWidth={0.9}
+                strokeDasharray="1.8 1.4"
+              />
+            ) : null}
+            <Circle cx={ball.from.x} cy={ball.from.y} r={1.3} fill="#FFFFFF" opacity={0.7} />
+            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="#FFFFFF" stroke="#0B1B33" strokeWidth={0.6} />
+            <Circle cx={ball.to.x} cy={ball.to.y} r={3} fill="none" stroke="#FFD23F" strokeWidth={0.6} strokeDasharray="1.2 1" />
+          </G>
+        ) : null}
       </Svg>
     </View>
   );

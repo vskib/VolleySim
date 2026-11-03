@@ -8,15 +8,17 @@ interface ScreenProps {
   subtitle?: string;
   /** Show a back button (for screens that are not in the bottom tabs). */
   back?: boolean;
+  /** Set to false while the user drags something so the page does not scroll under their finger. */
+  scrollEnabled?: boolean;
   children: React.ReactNode;
 }
 
-export function Screen({ title, subtitle, back, children }: ScreenProps) {
+export function Screen({ title, subtitle, back, scrollEnabled = true, children }: ScreenProps) {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   return (
     <View className="flex-1 bg-navy-900" style={{ paddingTop: insets.top }}>
-      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView scrollEnabled={scrollEnabled} keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingBottom: 32 }}>
         <View className="px-4 pt-3">
           {back ? (
             <Pressable
